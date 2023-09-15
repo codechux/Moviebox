@@ -10,16 +10,24 @@ import GridImg from "../assets/gridImg.png";
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({});
+  const [error, setError] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=ffa229b9bd22ecd8a5cb292da9cd612b`
-      )
-      .then((res) => {
-        setMovieDetails(res.data);
-      });
+    try {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=ffa229b9bd22ecd8a5cb292da9cd612b`
+        )
+        .then((res) => {
+          setMovieDetails(res.data);
+        });
+    } catch (error) {
+      console.log("Api is doing something fishy:", error);
+      setError(
+        "Error: Sometimes MTN can play tricks on you. Please try again later."
+      );
+    }
   }, [id]);
 
   const { title, release_date, runtime, overview, backdrop_path } =
@@ -36,6 +44,7 @@ const MovieDetails = () => {
 
   return (
     <>
+      {error && <div className="bg-red-500 text-white font-bold">{error}</div>}
       <div className="flex flex-col sm:flex-row">
         <Aside />
         <div className="m-4">
