@@ -39,7 +39,7 @@ const MovieCard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movieList &&
           movieList.slice(0, 10).map((movie) => (
-            <ul
+            <div
               data-testid="movie-card"
               key={movie.id}
               className="rounded-lg p-2 shadow-xl cursor-pointer relative"
@@ -87,7 +87,7 @@ const MovieCard = () => {
                   <p className="ml-2 text-xs sm:text-base">90%</p>
                 </div>
               </div>
-            </ul>
+            </div>
           ))}
       </div>
     </>
